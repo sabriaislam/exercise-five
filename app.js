@@ -1,15 +1,27 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const firebase = require("firebase/app");
 
-const indexRoute = require("/routes/index.js");
-const createPostRoute = require("/routes/createPost.js");
-const singePostRoute = require("/routes/singlePost.js");
+const firebaseConfig = {
+  apiKey: "AIzaSyBMaar94_4A_OFabFomZgQ_ywwGL8wVunY",
+  authDomain: "exercise-five-836a7.firebaseapp.com",
+  projectId: "exercise-five-836a7",
+  storageBucket: "exercise-five-836a7.firebasestorage.app",
+  messagingSenderId: "878053964023",
+  appId: "1:878053964023:web:cf3b178573529ec41e7bf2"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const indexRoute = require("./routes/index.js");
+const createPostRoute = require("./routes/createPost.js");
+const singlePostRoute = require("./routes/singlePost.js");
 
 app.use("/", indexRoute);
 app.use("/create", createPostRoute);
-app.use("/post", singePostRoute);
+app.use("/post", singlePostRoute);
 
 app.listen(port, () => {
-    console.log(`Cool app listening on port ${port}`)
- })
+    console.log(`Exercise five listening on port ${port}`);
+});

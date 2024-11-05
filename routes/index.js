@@ -1,8 +1,22 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const firestore = require("firebase/firestore");
+const db = firestore.getFirestore();
 
-router.get('/', (req, res) => {
-    res.send('Index Route!')
-  }) 
+router.get("/", (request, response) => {
+    const postQuery = firestore.getDocs(firestore.collection(db, "posts"));
+    const postsArray = [];
+    postQuery
+    .then((res) => {
+        res.forEach((post) => {
+            postsArray.push({id: post.id, ...post.data()});
+        });
+        response.send(postsArray);
+    })
+    .catch((error) => {
+        console.log(error);
+        return response.send(error);
+    });
+});
 
 module.exports = router;
