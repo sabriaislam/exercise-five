@@ -4,7 +4,7 @@ const port = 3000;
 const firebase = require("firebase/app");
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBMaar94_4A_OFabFomZgQ_ywwGL8wVunY",
+  apiKey: process.env.FIREBASE_KEY,
   authDomain: "exercise-five-836a7.firebaseapp.com",
   projectId: "exercise-five-836a7",
   storageBucket: "exercise-five-836a7.firebasestorage.app",
@@ -21,6 +21,8 @@ const singlePostRoute = require("./routes/singlePost.js");
 app.use("/", indexRoute);
 app.use("/create", createPostRoute);
 app.use("/post", singlePostRoute);
+
+app.use(express.static("public"));
 
 app.listen(port, () => {
     console.log(`Exercise five listening on port ${port}`);
